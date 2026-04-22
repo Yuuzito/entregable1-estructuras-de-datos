@@ -14,10 +14,16 @@ int main() {
   im.draw("imagen.png");
   im.move_left(500);
   sleep(2);
-  im.draw("imagen_desplazada_500.png");
-  im.move_left(100);
+  im.draw("imagen_desplazada_500_left.png");
+  im.move_right(100);
   sleep(2);
-  im.draw("imagen_desplazada_600.png");
+  im.draw("imagen_desplazada_100_right.png");
+  im.move_down(100);
+  sleep(2);
+  im.draw("imagen_desplazada_100_down.png");
+  im.move_up(100);
+  sleep(2);
+  im.draw("imagen_desplazada_100_up.png");
 
   /* NOTA 1: Si usan el mismo nombre para las imágenes, entonces cada llamada al
   método draw() sobreescribirá a la imagen */

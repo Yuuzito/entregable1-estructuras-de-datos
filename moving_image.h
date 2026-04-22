@@ -157,6 +157,7 @@ public:
       for(int j=0; j < W_IMG; j++)
     	  blue_layer[i][j] = tmp_layer[i][j];
   }
+
   void move_down(int d) {
     unsigned char **tmp_layer = new unsigned char*[H_IMG];
     for(int i=0; i < H_IMG; i++) 
@@ -165,11 +166,11 @@ public:
     // Mover la capa roja
     for(int i = 0; i < H_IMG - d; i++)
       for(int j = 0; j < W_IMG; j++)
-        tmp_layer[i][j] = red_layer[i + d][j];
+        tmp_layer[i+d][j] = red_layer[i][j];
 
     for(int i = H_IMG - d, k = 0; i < H_IMG; i++, k++)
       for(int j = 0; j < W_IMG; j++)
-        tmp_layer[i][j] = red_layer[k][j];
+        tmp_layer[k][j] = red_layer[i][j];
 
     for(int i=0; i < H_IMG; i++)
       for(int j=0; j < W_IMG; j++)
@@ -178,11 +179,11 @@ public:
     // Mover la capa verde
     for(int i = 0; i < H_IMG - d; i++)
       for(int j = 0; j < W_IMG; j++)
-        tmp_layer[i][j] = green_layer[i + d][j];
+        tmp_layer[i+d][j] = green_layer[i][j];
 
     for(int i = H_IMG - d, k = 0; i < H_IMG; i++, k++)
       for(int j = 0; j < W_IMG; j++)
-        tmp_layer[i][j] = green_layer[k][j];
+        tmp_layer[k][j] = green_layer[i][j];
 
     for(int i=0; i < H_IMG; i++)
       for(int j=0; j < W_IMG; j++)
@@ -192,16 +193,17 @@ public:
 
     for(int i = 0; i < H_IMG - d; i++)
       for(int j = 0; j < W_IMG; j++)
-        tmp_layer[i][j] = blue_layer[i + d][j];
+        tmp_layer[i+d][j] = blue_layer[i][j];
 
     for(int i = H_IMG - d, k = 0; i < H_IMG; i++, k++)
       for(int j = 0; j < W_IMG; j++)
-        tmp_layer[i][j] = blue_layer[k][j];
+        tmp_layer[k][j] = blue_layer[i][j];
 
     for(int i=0; i < H_IMG; i++)
       for(int j=0; j < W_IMG; j++)
         blue_layer[i][j] = tmp_layer[i][j];
   }
+
   void move_up(int d) {
     unsigned char **tmp_layer = new unsigned char*[H_IMG];
     for(int i=0; i < H_IMG; i++) 
