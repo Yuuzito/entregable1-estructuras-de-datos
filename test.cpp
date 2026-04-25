@@ -10,60 +10,58 @@
 #include<iostream>
 
 int main() {
-  std::cout << "--- INICIANDO TEST DE MOVING IMAGE ---\n\n";
+  moving_image img;
 
-  // 1. Instanciamos la imagen (esto llama al constructor)
-  moving_image mi_imagen;
-  std::cout << "Imagen creada. Guardando estado inicial...\n";
-  mi_imagen.draw("paso_0_inicial.png");
+  // Estado inicial
+  img.draw("output/00_inicial.png");
 
-  // 2. Hacemos algunos movimientos
-  std::cout << "\n--- HACIENDO MOVIMIENTOS ---\n";
-    
-  std::cout << "Moviendo a la derecha 50 pixeles...\n";
-  mi_imagen.move_right(50);
-  mi_imagen.draw("paso_1_derecha.png");
+  // Movimientos básicos
+  img.move_left(120);
+  img.draw("output/01_move_left_120.png");
 
-  std::cout << "Moviendo hacia abajo 80 pixeles...\n";
-  mi_imagen.move_down(80);
-  mi_imagen.draw("paso_2_abajo.png");
+  img.move_right(40);
+  img.draw("output/02_move_right_40.png");
 
-  std::cout << "Rotando 90 grados...\n";
-  mi_imagen.rotate();
-  mi_imagen.draw("paso_3_rotado.png");
+  img.move_up(80);
+  img.draw("output/03_move_up_80.png");
 
-  // 3. Probamos el UNDO (Deshacer)
-  std::cout << "\n--- PROBANDO UNDO (Viaje al pasado) ---\n";
-    
-  mi_imagen.undo(); // Debería deshacer la rotación
-  mi_imagen.draw("paso_4_undo_rotacion.png");
+  img.move_down(30);
+  img.draw("output/04_move_down_30.png");
 
-  mi_imagen.undo(); // Debería deshacer el movimiento hacia abajo
-  mi_imagen.draw("paso_5_undo_abajo.png");
+  // Rotación
+  img.rotate();
+  img.draw("output/05_rotate.png");
 
-  // 4. Probamos el REDO (Viaje al futuro)
-  std::cout << "\n--- PROBANDO REDO (Viaje al futuro) ---\n";
-    
-  mi_imagen.redo(); // Debería rehacer el movimiento hacia abajo
-  mi_imagen.draw("paso_6_redo_abajo.png");
+  // Undo / Redo
+  img.undo();
+  img.draw("output/06_undo.png");
 
-  // 5. Probamos la bifurcación temporal (hacer algo nuevo tras un undo)
-  std::cout << "\n--- PROBANDO NUEVA LINEA TEMPORAL ---\n";
-    
-  mi_imagen.undo(); // Volvemos a quitar el movimiento hacia abajo
-  mi_imagen.draw("paso_7_undo_abajo.png");
-  std::cout << "Se deshizo el movimiento hacia abajo.\n";
-    
-  std::cout << "Moviendo a la izquierda 30 pixeles (Crea nueva linea temporal)...\n";
-  mi_imagen.move_left(30);
-  mi_imagen.draw("paso_8_nueva_linea_izq.png");
+  img.redo();
+  img.draw("output/07_redo.png");
 
-  std::cout << "Intentando rehacer (Deberia fallar porque el futuro fue borrado)...\n";
-  mi_imagen.redo(); // Aquí tu programa debería imprimir "No hay operaciones para rehacer"
+  // Repeat (repite la última operación activa)
+  img.repeat();
+  img.draw("output/08_repeat.png");
 
-  std::cout << "\n--- TEST FINALIZADO CORRECTAMENTE ---\n";
-  std::cout << "Revisa tu carpeta para ver los archivos .png generados.\n";
-  /* NOTA 1: Si usan el mismo nombre para las imágenes, entonces cada llamada al
+  // Más operaciones para tener historial más completo
+  img.move_left(60);
+  img.draw("output/09_move_left_60.png");
+
+  img.move_down(50);
+  img.draw("output/10_move_down_50.png");
+
+  img.undo();
+  img.draw("output/11_undo.png");
+
+  // Reproduce todo el historial desde el estado inicial
+  // (además va guardando imágenes intermedias por cada paso)
+  img.repeat_all();
+
+  // Estado final luego de repeat_all
+  
+  std::cout << "Imagenes generadas en la carpeta output." << std::endl;
+
+    /* NOTA 1: Si usan el mismo nombre para las imágenes, entonces cada llamada al
   método draw() sobreescribirá a la imagen */
 
   /* NOTA 2: Si usan un ciclo while(1) y usan el mismo nombre de imagen,
